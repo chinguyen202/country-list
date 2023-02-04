@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -6,31 +7,92 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import CountryItem from './CountryItem';
+import TablePagination from '@mui/material/TablePagination';
 
 const CountryList = (props) => {
-  console.log('COUNTRYLIST -PROPS: ', props.countries);
+  //Table header sticky
+  const columns = [
+    { id: 'flag', label: 'Flag', minWidth: 250, align: 'center' },
+    { id: 'name', label: 'Name', minWidth: 100, align: 'center' },
+    {
+      id: 'region',
+      label: 'Region',
+      minWidth: 100,
+      align: 'center',
+    },
+    {
+      id: 'population',
+      label: 'Population',
+      minWidth: 100,
+      align: 'center',
+    },
+    {
+      id: 'languages',
+      label: 'Languages',
+      minWidth: 150,
+      align: 'center',
+    },
+    {
+      id: 'icon',
+      label: '',
+      minWidth: 150,
+      align: 'left',
+    },
+  ];
+
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
 
   return (
     <>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650, margin: '1rem' }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Flag</TableCell>
-              <TableCell align="right">Name</TableCell>
-              <TableCell align="right">Regions</TableCell>
-              <TableCell align="right">Population</TableCell>
-              <TableCell align="right">Languages</TableCell>
-              <TableCell align="right"></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {props.countries.map((country) => (
-              <CountryItem country={country} key={country.flag} />
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+        <TableContainer sx={{ minHeight: '100%' }}>
+          <Table
+            sx={{ minWidth: '100%', margin: '1rem', minHeight: '100%' }}
+            aria-label="simple table"
+          >
+            <TableHead>
+              <TableRow>
+                {columns.map((column) => (
+                  <TableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{ minWidth: column.minWidth, fontSize: '1.5rem' }}
+                  >
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+
+            <TableBody>
+              {props.countries
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((country) => {
+                  return <CountryItem country={country} key={country.flag} />;
+                })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[5, 25, 100]}
+          component="div"
+          count={props.countries.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </Paper>
     </>
   );
 };

@@ -2,32 +2,31 @@ import { useEffect, useState } from 'react';
 import CountryList from '../components/CountryList';
 import { useApi } from '../hooks/ApiHook';
 import { baseUrl } from '../utils/variables';
+import '../App.css';
 
 function Home() {
   const { sendRequest } = useApi();
   const [countries, setCountries] = useState();
-  const [isLoading, setIsLoading] = useState();
 
   useEffect(() => {
     const fetchList = async () => {
-      setIsLoading(true);
       try {
         const response = await sendRequest(`${baseUrl}/all`);
 
         setCountries(response);
-        console.log('TEST: ', countries);
       } catch (e) {
         console.log(e.message);
+        alert(e.message);
       }
-      setIsLoading(false);
     };
     fetchList();
   }, []);
 
   return (
     <>
-      <h1> Country List</h1>
-      {!isLoading && countries && <CountryList countries={countries} />}
+      <h1 className="App"> Country List</h1>
+      {countries && <CountryList countries={countries} />}
+      {!countries && <h1 className="App">Please try again later</h1>}
     </>
   );
 }
