@@ -1,29 +1,27 @@
 import { useEffect, useState } from 'react';
 import CountryList from '../components/CountryList';
+import { useApi } from '../hooks/ApiHook';
+import { baseUrl } from '../utils/variables';
 
 function Home() {
+  const { sendRequest } = useApi();
   const [countries, setCountries] = useState();
   const [isLoading, setIsLoading] = useState();
 
   useEffect(() => {
-    const sendRequest = async () => {
+    const fetchList = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch('https://restcountries.com/v3.1/all');
-        const data = await response.json();
-        console.log('DATA: ', data);
+        const response = await sendRequest(`${baseUrl}/all`);
 
-        if (!response.ok) {
-          throw new Error(data.message);
-        }
-
-        setCountries(data);
+        setCountries(response);
+        console.log('TEST: ', countries);
       } catch (e) {
         console.log(e.message);
       }
       setIsLoading(false);
     };
-    sendRequest();
+    fetchList();
   }, []);
 
   return (
