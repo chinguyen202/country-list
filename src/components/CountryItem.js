@@ -1,5 +1,6 @@
 import { TableCell, TableRow, CardMedia } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { Link } from 'react-router-dom';
 
 const CountryItem = (props) => {
   let languages = [];
@@ -33,7 +34,9 @@ const CountryItem = (props) => {
         })}
       </TableCell>
       <TableCell align="center">
-        <ArrowForwardIosIcon />
+        <Link to={`/${props.country.name.common}`}>
+          <ArrowForwardIosIcon />
+        </Link>
       </TableCell>
     </TableRow>
   );
