@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import CountryList from '../components/CountryList';
 import { useApi } from '../hooks/ApiHook';
 import { baseUrl } from '../utils/variables';
@@ -12,9 +12,7 @@ import Toolbar from '@mui/material/Toolbar';
 
 function Home() {
   const { sendRequest } = useApi();
-  const { countries, setCountries, isSearching, query } =
-    useContext(CountryContext);
-  // const [countries, setCountries] = useState();
+  const { countries, setCountries, isSearching } = useContext(CountryContext);
 
   useEffect(() => {
     const fetchList = async () => {

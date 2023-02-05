@@ -1,5 +1,5 @@
+//Custom hooks to work with http-request
 export const useApi = () => {
-  //Use callback  to avoid infinite loop
   const sendRequest = async (
     url,
     method = 'GET',

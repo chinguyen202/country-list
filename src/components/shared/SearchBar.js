@@ -3,7 +3,7 @@ import { styled, alpha } from '@mui/material/styles';
 import { Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 import CountryContext from '../../contexts/CountryContext';
 
 const Search = styled('div')(({ theme }) => ({
@@ -49,14 +49,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function SearchBar() {
-  const {
-    isSearching,
-    query,
-    setIsSearching,
-    setQuery,
-    countries,
-    setCountries,
-  } = useContext(CountryContext);
+  const { query, setIsSearching, setQuery, countries, setCountries } =
+    useContext(CountryContext);
 
   const handleChange = (e) => {
     e.preventDefault();

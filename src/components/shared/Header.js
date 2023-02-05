@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
+import HomeIcon from '@mui/icons-material/Home';
 import { Link } from 'react-router-dom';
 
 function Header() {
@@ -15,7 +15,7 @@ function Header() {
           aria-label="menu"
           sx={{ mr: 2 }}
         >
-          <MenuIcon />
+          <HomeIcon />
         </IconButton>
       </Link>
       <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
