@@ -20,9 +20,9 @@ const CountryItem = (props) => {
         <CardMedia
           component="img"
           height="100"
-          width="50"
           image={props.country.flags.png}
           alt={props.country.name.common}
+          sx={{ padding: '1em 1em 0 1em', objectFit: 'contain' }}
         />
       </TableCell>
       <TableCell align="center">{props.country.name.common}</TableCell>

@@ -57,23 +57,26 @@ function SearchBar() {
     countries,
     setCountries,
   } = useContext(CountryContext);
+
   const handleChange = (e) => {
-    if (e.target.value === '') {
-      window.location.reload(true);
-    } else {
-      setIsSearching(true);
-      setQuery(e.target.value);
-    }
+    e.preventDefault();
+    setIsSearching(true);
+    setQuery(e.target.value);
   };
 
   const handleClick = (e) => {
-    console.log('CLICK');
     e.preventDefault();
     const filterList = countries.filter((country) =>
       country.name.common.toLowerCase().includes(query.toLowerCase())
     );
     console.log('SEARCH RESULTS: ', filterList);
     setCountries(filterList);
+  };
+
+  const clearSearch = (e) => {
+    e.preventDefault();
+    setQuery('');
+    window.location.reload(true);
   };
 
   return (
@@ -88,7 +91,10 @@ function SearchBar() {
         value={query}
       />
       <Button variant="contained" onClick={handleClick}>
-        Go
+        Search
+      </Button>
+      <Button variant="contained" onClick={clearSearch}>
+        Clear
       </Button>
     </Search>
   );

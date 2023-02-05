@@ -1,7 +1,6 @@
 import '../App.css';
 import * as React from 'react';
 import { useState } from 'react';
-import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -17,17 +16,8 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
-
-const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
+import ExpandMore from './shared/ExpandMore';
+import CloseIcon from '@mui/icons-material/Close';
 
 const style = {
   position: 'absolute',
@@ -104,6 +94,7 @@ function CountryDetail(props) {
       <Card
         sx={{
           maxWidth: '100%',
+          minHeight: '50%',
           margin: '1rem',
           padding: '1rem',
         }}
@@ -114,11 +105,6 @@ function CountryDetail(props) {
               {thisCountry.cca2}
             </Avatar>
           }
-          action={
-            <IconButton aria-label="settings">
-              <MoreVertIcon />
-            </IconButton>
-          }
           title={countryName}
           subheader={thisCountry.capital}
         />
@@ -128,6 +114,7 @@ function CountryDetail(props) {
           height="194"
           image={flagLink}
           alt={thisCountry.capital}
+          sx={{ padding: '1em 1em 0 1em', objectFit: 'contain' }}
         />
         <CardContent>
           <Typography variant="body2" color="text.secondary">
@@ -174,6 +161,9 @@ function CountryDetail(props) {
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
+            {/* <IconButton onClick={this.onClose}>
+              <CloseIcon />
+            </IconButton> */}
             <Typography
               id="modal-modal-title"
               variant="h6"
