@@ -1,4 +1,5 @@
 import '../App.css';
+import * as React from 'react';
 import { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
@@ -14,6 +15,8 @@ import { red } from '@mui/material/colors';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -26,18 +29,65 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
 function CountryDetail(props) {
-  let country = [],
-    independence = '';
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  let thisCountry = [],
+    independence = '',
+    coordinate = [],
+    countryName = '',
+    flagLink = '',
+    googleLink = '';
 
   //Extract the country data from props
   for (const index in props.country) {
-    country = props.country[index];
+    thisCountry = props.country[index];
+  }
+
+  //Save coordinate to an array to use
+  for (const index in thisCountry.capitalInfo) {
+    if (index === 'latlng') {
+      coordinate = thisCountry.capitalInfo[index];
+    }
+  }
+
+  //Extract country name
+  for (const prop in thisCountry.name) {
+    if (prop === 'common') {
+      countryName = thisCountry.name[prop];
+    }
+  }
+
+  //Extract flag link
+  for (const prop in thisCountry.flags) {
+    if (prop === 'png') {
+      flagLink = thisCountry.flags[prop];
+    }
+  }
+
+  //Extract google Map link
+  for (const prop in thisCountry.maps) {
+    if (prop === 'googleMaps') {
+      googleLink = thisCountry.maps[prop];
+    }
   }
 
   //Condition for independet state of the country
-
-  if (country.independent === true) {
+  if (thisCountry.independent === true) {
     independence = 'has';
   } else {
     independence = 'has not';
@@ -61,7 +111,7 @@ function CountryDetail(props) {
         <CardHeader
           avatar={
             <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-              {country.cca2}
+              {thisCountry.cca2}
             </Avatar>
           }
           action={
@@ -69,28 +119,33 @@ function CountryDetail(props) {
               <MoreVertIcon />
             </IconButton>
           }
-          title={country.name.common}
-          subheader={country.capital}
+          title={countryName}
+          subheader={thisCountry.capital}
         />
 
         <CardMedia
           component="img"
           height="194"
-          image={country.coatOfArms.png}
-          alt={country.capital}
+          image={flagLink}
+          alt={thisCountry.capital}
         />
         <CardContent>
           <Typography variant="body2" color="text.secondary">
-            The country belongs to <span>{country.region}</span> region and{' '}
-            <span>{country.subregion}</span> sub-region. Located at the{' '}
-            <span>{country.latlng}</span> N and <span>{country.latlng}</span> W,
-            this country has population of <span>{country.population}</span> and
-            it {independence} gained the independent, according to the CIA World
-            Factbook.
+            The country belongs to{' '}
+            <span style={{ fontWeight: 'bold' }}>{thisCountry.region}</span>{' '}
+            region and{' '}
+            <span style={{ fontWeight: 'bold' }}>{thisCountry.subregion}</span>{' '}
+            sub-region. Located at the{' '}
+            <span style={{ fontWeight: 'bold' }}>{coordinate[0]}</span> &#176;N
+            and <span style={{ fontWeight: 'bold' }}>{coordinate[1]}</span>{' '}
+            &#176;W, this country has population of{' '}
+            <span style={{ fontWeight: 'bold' }}>{thisCountry.population}</span>{' '}
+            and it {independence} gained the independent, according to the CIA
+            World Factbook.
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="open-map">
+          <IconButton aria-label="open-map" onClick={handleOpen}>
             <LocationOnIcon />
           </IconButton>
           <ExpandMore
@@ -104,23 +159,35 @@ function CountryDetail(props) {
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <Typography paragraph>Continent: {country.continents}</Typography>
             <Typography paragraph>
-              Heat 1/2 cup of the broth in a pot until simmering, add saffron
-              and set aside for 10 minutes.
+              Continent: {thisCountry.continents}
             </Typography>
-            <Typography paragraph>
-              Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet
-            </Typography>
-            <Typography paragraph>
-              Add rice and stir very gently to distribute. Top with artichokes
-            </Typography>
-            <Typography>
-              Set aside off of the heat to let rest for 10 minutes, and then
-              serve.
-            </Typography>
+            <Typography paragraph>Timezone: {thisCountry.timezones}</Typography>
+            <Typography paragraph>Status : {thisCountry.status}</Typography>
           </CardContent>
         </Collapse>
+
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Typography
+              id="modal-modal-title"
+              variant="h6"
+              component="h2"
+              align="center"
+            >
+              Google Map
+            </Typography>
+
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              {googleLink}
+            </Typography>
+          </Box>
+        </Modal>
       </Card>
     </div>
   );
