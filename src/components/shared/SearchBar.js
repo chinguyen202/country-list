@@ -6,6 +6,7 @@ import InputBase from '@mui/material/InputBase';
 import { useContext } from 'react';
 import CountryContext from '../../contexts/CountryContext';
 
+// SEARCH BOX STYLING WITH MUI
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -49,15 +50,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function SearchBar() {
+  //Call global state
   const { query, setIsSearching, setQuery, countries, setCountries } =
     useContext(CountryContext);
 
+  //If the user input, set user input to query
   const handleChange = (e) => {
     e.preventDefault();
     setIsSearching(true);
     setQuery(e.target.value);
   };
 
+  //If the button for search is click, filter from countries by comparing countries'name with query
   const handleClick = (e) => {
     e.preventDefault();
     const filterList = countries.filter((country) =>
@@ -67,6 +71,7 @@ function SearchBar() {
     setCountries(filterList);
   };
 
+  //Clear search input and reload the page to display all countries
   const clearSearch = (e) => {
     e.preventDefault();
     setQuery('');

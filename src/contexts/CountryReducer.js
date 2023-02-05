@@ -1,5 +1,4 @@
 const countryReducer = (state, action) => {
-  const { query, countries } = action;
   switch (action.type) {
     case 'SET_COUNTRIES':
       return {

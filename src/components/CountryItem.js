@@ -2,6 +2,7 @@ import { TableCell, TableRow, CardMedia } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Link } from 'react-router-dom';
 
+//Display each country's info on a table cell
 const CountryItem = (props) => {
   let languages = [];
   for (const index in props.country.languages) {
@@ -49,20 +50,5 @@ const CountryItem = (props) => {
     </TableRow>
   );
 };
-
-// const CountryItem = (props) => {
-
-//   return (
-//     <>
-//       {/* <TableCell component="th" scope="row">
-//         {props.country.flag}
-//       </TableCell>
-//       <TableCell align="right">{props.name.common}</TableCell>
-//       <TableCell align="right">{props.country.region}</TableCell>
-//       <TableCell align="right">{props.country.population}</TableCell>
-//       <TableCell align="right">{props.country.languages}</TableCell>
-//     </> */}
-//   );
-// };
 
 export default CountryItem;

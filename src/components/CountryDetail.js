@@ -18,9 +18,11 @@ import ExpandMore from './shared/ExpandMore';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 
 function CountryDetail(props) {
+  //State for open expand info
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [expanded, setExpanded] = useState(false);
 
   let thisCountry = [],
     independence = '',
@@ -54,14 +56,12 @@ function CountryDetail(props) {
     }
   }
 
-  //Condition for independet state of the country
+  //Condition for independent state of the country
   if (thisCountry.independent === true) {
     independence = 'has';
   } else {
     independence = 'has not';
   }
-
-  const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -143,8 +143,8 @@ function CountryDetail(props) {
             </Typography>
           </CardContent>
         </Collapse>
-        {/* MAP */}
 
+        {/* MAP MODAL, POINT TO CAPITAL POSITION ON MAP */}
         <Modal
           open={open}
           onClose={handleClose}

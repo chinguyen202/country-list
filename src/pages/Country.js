@@ -9,13 +9,16 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 
+// Page to display country detail
 function Country() {
+  //Get params
   const name = useParams().name;
 
   const { sendRequest } = useApi();
   const [country, setCountry] = useState();
 
   useEffect(() => {
+    //Get country detail from API
     const fetchCountry = async () => {
       try {
         const response = await sendRequest(`${baseUrl}/name/${name}`);
@@ -28,6 +31,7 @@ function Country() {
       }
     };
     fetchCountry();
+    // eslint-disable-next-line
   }, []);
 
   return (

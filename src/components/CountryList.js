@@ -9,6 +9,7 @@ import Paper from '@mui/material/Paper';
 import CountryItem from './CountryItem';
 import TablePagination from '@mui/material/TablePagination';
 
+//Display a list of countries (search result or all country fetch from api)
 const CountryList = (props) => {
   //Table header sticky
   const columns = [
@@ -40,6 +41,7 @@ const CountryList = (props) => {
     },
   ];
 
+  //Pagination using MUI
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -79,6 +81,7 @@ const CountryList = (props) => {
             </TableHead>
 
             <TableBody>
+              {/* Iterate through country list to create a table cell for  each country */}
               {props.countries
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((country) => {

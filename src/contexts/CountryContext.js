@@ -1,6 +1,5 @@
 import { createContext, useReducer } from 'react';
 import countryReducer from './CountryReducer';
-import { baseUrl } from '../utils/variables';
 
 const CountryContext = createContext();
 
@@ -24,7 +23,7 @@ export const CountryProvider = ({ children }) => {
   //Set searching
   const setIsSearching = () => dispatch({ type: 'SET_SEARCHING' });
 
-  //Set countryName
+  //Set query input
   const setQuery = (name) => dispatch({ type: 'SET_QUERY', payload: name });
 
   return (
