@@ -3,6 +3,7 @@ import CountryList from '../components/CountryList';
 import { useApi } from '../hooks/ApiHook';
 import { baseUrl } from '../utils/variables';
 import '../App.css';
+import Header from '../components/shared/Header';
 
 function Home() {
   const { sendRequest } = useApi();
@@ -24,7 +25,7 @@ function Home() {
 
   return (
     <>
-      <h1 className="App"> Country List</h1>
+      <Header />
       {countries && <CountryList countries={countries} />}
       {!countries && <h1 className="App">Please try again later</h1>}
     </>

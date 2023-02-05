@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useApi } from '../hooks/ApiHook';
 import { baseUrl } from '../utils/variables';
 import '../App.css';
+import Header from '../components/shared/Header';
 
 function Country() {
   const name = useParams().name;
@@ -28,7 +29,7 @@ function Country() {
 
   return (
     <>
-      <h1 className="App">{name}</h1>
+      <Header />
       <CountryDetail country={country} />
     </>
   );
