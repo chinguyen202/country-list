@@ -12,24 +12,22 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
 import ExpandMore from './shared/ExpandMore';
-import CloseIcon from '@mui/icons-material/Close';
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
+// const style = {
+//   position: 'absolute',
+//   top: '50%',
+//   left: '50%',
+//   transform: 'translate(-50%, -50%)',
+//   width: 400,
+//   bgcolor: 'background.paper',
+//   border: '2px solid #000',
+//   boxShadow: 24,
+//   p: 4,
+// };
 
 function CountryDetail(props) {
   const [open, setOpen] = useState(false);
@@ -40,8 +38,7 @@ function CountryDetail(props) {
     independence = '',
     coordinate = [],
     countryName = '',
-    flagLink = '',
-    googleLink = '';
+    flagLink = '';
 
   //Extract the country data from props
   for (const index in props.country) {
@@ -66,13 +63,6 @@ function CountryDetail(props) {
   for (const prop in thisCountry.flags) {
     if (prop === 'png') {
       flagLink = thisCountry.flags[prop];
-    }
-  }
-
-  //Extract google Map link
-  for (const prop in thisCountry.maps) {
-    if (prop === 'googleMaps') {
-      googleLink = thisCountry.maps[prop];
     }
   }
 
@@ -108,7 +98,6 @@ function CountryDetail(props) {
           title={countryName}
           subheader={thisCountry.capital}
         />
-
         <CardMedia
           component="img"
           height="194"
@@ -153,6 +142,7 @@ function CountryDetail(props) {
             <Typography paragraph>Status : {thisCountry.status}</Typography>
           </CardContent>
         </Collapse>
+        {/* MAP */}
 
         <Modal
           open={open}
@@ -160,23 +150,29 @@ function CountryDetail(props) {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={style}>
-            {/* <IconButton onClick={this.onClose}>
-              <CloseIcon />
-            </IconButton> */}
-            <Typography
-              id="modal-modal-title"
-              variant="h6"
-              component="h2"
-              align="center"
-            >
-              Google Map
-            </Typography>
-
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              {googleLink}
-            </Typography>
-          </Box>
+          <MapContainer
+            style={{
+              height: '50%',
+              width: '90%',
+              marginTop: '50%',
+              marginLeft: '3rem',
+              marginRight: '3rem',
+            }}
+            center={coordinate}
+            zoom={13}
+            scrollWheelZoom={false}
+          >
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <Marker position={coordinate}>
+              <Popup>
+                <span style={{ fontWeight: 'bold' }}>Capital</span> :{' '}
+                {thisCountry.capital}
+              </Popup>
+            </Marker>
+          </MapContainer>
         </Modal>
       </Card>
     </div>
