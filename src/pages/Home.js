@@ -27,7 +27,9 @@ function Home() {
         throw new Error(`LOADING DATA FAIL - ${e}`);
       }
     };
+
     fetchList();
+    // eslint-disable-next-line
   }, []);
 
   return (

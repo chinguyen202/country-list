@@ -79,11 +79,16 @@ function CountryDetail(props) {
       >
         <CardHeader
           avatar={
-            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+            <Avatar
+              sx={{ bgcolor: red[500], width: 60, height: 60 }}
+              aria-label="recipe"
+            >
               {thisCountry.cca2}
             </Avatar>
           }
+          titleTypographyProps={{ variant: 'h4' }}
           title={countryName}
+          subheaderTypographyProps={{ variant: 'h6' }}
           subheader={thisCountry.capital}
         />
         <CardMedia
@@ -94,7 +99,11 @@ function CountryDetail(props) {
           sx={{ padding: '1em 1em 0 1em', objectFit: 'contain' }}
         />
         <CardContent>
-          <Typography variant="body2" color="text.secondary">
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{ fontSize: '1.5rem' }}
+          >
             The country belongs to{' '}
             <span style={{ fontWeight: 'bold' }}>{thisCountry.region}</span>{' '}
             region and{' '}
@@ -110,7 +119,7 @@ function CountryDetail(props) {
         </CardContent>
         <CardActions disableSpacing>
           <IconButton aria-label="open-map" onClick={handleOpen}>
-            <LocationOnIcon />
+            <LocationOnIcon sx={{ fontSize: '3rem' }} />
           </IconButton>
           <ExpandMore
             expand={expanded}
@@ -118,16 +127,20 @@ function CountryDetail(props) {
             aria-expanded={expanded}
             aria-label="show more"
           >
-            <ExpandMoreIcon />
+            <ExpandMoreIcon sx={{ fontSize: '3rem' }} />
           </ExpandMore>
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <Typography paragraph>
+            <Typography paragraph sx={{ fontSize: '1.5rem' }}>
               Continent: {thisCountry.continents}
             </Typography>
-            <Typography paragraph>Timezone: {thisCountry.timezones}</Typography>
-            <Typography paragraph>Status : {thisCountry.status}</Typography>
+            <Typography paragraph sx={{ fontSize: '1.5rem' }}>
+              Timezone: {thisCountry.timezones}
+            </Typography>
+            <Typography paragraph sx={{ fontSize: '1.5rem' }}>
+              Status : {thisCountry.status}
+            </Typography>
           </CardContent>
         </Collapse>
         {/* MAP */}
@@ -142,7 +155,7 @@ function CountryDetail(props) {
             style={{
               height: '50%',
               width: '90%',
-              marginTop: '50%',
+              marginTop: '20%',
               marginLeft: '3rem',
               marginRight: '3rem',
             }}

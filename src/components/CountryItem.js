@@ -14,7 +14,9 @@ const CountryItem = (props) => {
       hover
       role="checkbox"
       tabIndex={-1}
-      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+      sx={{
+        '&:last-child td, &:last-child th': { border: 0 },
+      }}
     >
       <TableCell component="th" scope="row">
         <CardMedia
@@ -25,15 +27,21 @@ const CountryItem = (props) => {
           sx={{ padding: '1em 1em 0 1em', objectFit: 'contain' }}
         />
       </TableCell>
-      <TableCell align="center">{props.country.name.common}</TableCell>
-      <TableCell align="center">{props.country.region}</TableCell>
-      <TableCell align="center">{props.country.population}</TableCell>
-      <TableCell align="center">
+      <TableCell align="center" style={{ fontSize: '1.5rem' }}>
+        {props.country.name.common}
+      </TableCell>
+      <TableCell align="center" style={{ fontSize: '1.5rem' }}>
+        {props.country.region}
+      </TableCell>
+      <TableCell align="center" style={{ fontSize: '1.5rem' }}>
+        {props.country.population}
+      </TableCell>
+      <TableCell align="center" style={{ fontSize: '1.5rem' }}>
         {languages.map((language, index) => {
           return <li key={index}>{language}</li>;
         })}
       </TableCell>
-      <TableCell align="center">
+      <TableCell align="center" style={{ fontSize: '1.5rem' }}>
         <Link to={`/${props.country.name.common}`}>
           <ArrowForwardIosIcon />
         </Link>

@@ -66,7 +66,11 @@ const CountryList = (props) => {
                   <TableCell
                     key={column.id}
                     align={column.align}
-                    style={{ minWidth: column.minWidth, fontSize: '1.5rem' }}
+                    style={{
+                      minWidth: column.minWidth,
+                      fontSize: '1.5rem',
+                      fontWeight: 'bold',
+                    }}
                   >
                     {column.label}
                   </TableCell>
@@ -84,10 +88,11 @@ const CountryList = (props) => {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[5, 25, 100]}
+          rowsPerPageOptions={[5, 25, 50]}
           component="div"
           count={props.countries.length}
           rowsPerPage={rowsPerPage}
+          labelRowsPerPage="Countries per page"
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}

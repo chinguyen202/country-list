@@ -15,10 +15,14 @@ function Header() {
           aria-label="menu"
           sx={{ mr: 2 }}
         >
-          <HomeIcon />
+          <HomeIcon sx={{ fontSize: '3rem' }} />
         </IconButton>
       </Link>
-      <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+      <Typography
+        variant="h6"
+        component="div"
+        sx={{ flexGrow: 1, fontSize: '2.5rem' }}
+      >
         Country
       </Typography>
     </>

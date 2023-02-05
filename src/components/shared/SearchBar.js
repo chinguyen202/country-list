@@ -84,10 +84,18 @@ function SearchBar() {
         onChange={handleChange}
         value={query}
       />
-      <Button variant="contained" onClick={handleClick}>
+      <Button
+        variant="contained"
+        onClick={handleClick}
+        sx={{ fontSize: '1rem' }}
+      >
         Search
       </Button>
-      <Button variant="contained" onClick={clearSearch}>
+      <Button
+        variant="contained"
+        sx={{ fontSize: '1rem' }}
+        onClick={clearSearch}
+      >
         Clear
       </Button>
     </Search>
