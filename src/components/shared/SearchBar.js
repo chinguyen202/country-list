@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
+import { Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import CountryContext from '../../contexts/CountryContext';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -47,7 +49,32 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function SearchBar() {
-  const [query, setQuery] = useState();
+  const {
+    isSearching,
+    query,
+    setIsSearching,
+    setQuery,
+    countries,
+    setCountries,
+  } = useContext(CountryContext);
+  const handleChange = (e) => {
+    if (e.target.value === '') {
+      window.location.reload(true);
+    } else {
+      setIsSearching(true);
+      setQuery(e.target.value);
+    }
+  };
+
+  const handleClick = (e) => {
+    console.log('CLICK');
+    e.preventDefault();
+    const filterList = countries.filter((country) =>
+      country.name.common.toLowerCase().includes(query.toLowerCase())
+    );
+    console.log('SEARCH RESULTS: ', filterList);
+    setCountries(filterList);
+  };
 
   return (
     <Search>
@@ -57,7 +84,12 @@ function SearchBar() {
       <StyledInputBase
         placeholder="Search for a country ..."
         inputProps={{ 'aria-label': 'search' }}
+        onChange={handleChange}
+        value={query}
       />
+      <Button variant="contained" onClick={handleClick}>
+        Go
+      </Button>
     </Search>
   );
 }

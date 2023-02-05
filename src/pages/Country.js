@@ -5,6 +5,9 @@ import { useApi } from '../hooks/ApiHook';
 import { baseUrl } from '../utils/variables';
 import '../App.css';
 import Header from '../components/shared/Header';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
 
 function Country() {
   const name = useParams().name;
@@ -29,7 +32,13 @@ function Country() {
 
   return (
     <>
-      <Header />
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static">
+          <Toolbar>
+            <Header />
+          </Toolbar>
+        </AppBar>
+      </Box>
       <CountryDetail country={country} />
     </>
   );
